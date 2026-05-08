@@ -6,6 +6,7 @@ import { SOCIAL_CONFIG, SOCIAL_KEYS } from '@/components/ui/SocialIcons';
 import { THEME_PRESETS } from '@/data/mockData';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
+import ImageUploader from '@/components/ui/ImageUploader';
 import {
   Plus, Trash2, User, Save, Building2,
   ChevronDown, ChevronUp, Link as LinkIcon,
@@ -147,18 +148,14 @@ export default function ProfileForm({ initial, onSave, onPreviewChange, loading 
               onChange={e => setBio(e.target.value)}
             />
           </div>
-          <Input
-            label="Profile Image URL"
-            placeholder="https://..."
+          <ImageUploader
+            label="Profile Image"
             value={profileImage}
-            onChange={e => setProfileImage(e.target.value)}
+            onChange={setProfileImage}
+            shape="circle"
+            bucket="avatars"
+            folder="profiles"
           />
-          {profileImage && (
-            <div className="flex items-center gap-3">
-              <img src={profileImage} alt="preview" className="w-16 h-16 rounded-full object-cover border border-white/20" />
-              <span className="text-xs text-white/40">Image Preview</span>
-            </div>
-          )}
         </motion.div>
       )}
 
@@ -247,23 +244,14 @@ export default function ProfileForm({ initial, onSave, onPreviewChange, loading 
                             value={company.tagline || ''}
                             onChange={e => updateCompany(company.id, 'tagline', e.target.value)}
                           />
-                          <Input
-                            label="Company Logo URL"
-                            placeholder="https://..."
+                          <ImageUploader
+                            label="Company Logo"
                             value={company.logo || ''}
-                            onChange={e => updateCompany(company.id, 'logo', e.target.value)}
+                            onChange={url => updateCompany(company.id, 'logo', url)}
+                            shape="square"
+                            bucket="avatars"
+                            folder="logos"
                           />
-                          {company.logo && (
-                            <div className="flex items-center gap-3">
-                              <img
-                                src={company.logo}
-                                alt="logo preview"
-                                className="w-12 h-12 rounded-xl object-cover border border-white/20"
-                                onError={e => { (e.target as HTMLImageElement).style.display='none'; }}
-                              />
-                              <span className="text-xs text-white/40">Logo Preview</span>
-                            </div>
-                          )}
                         </div>
 
                         {/* Social links for this company */}
