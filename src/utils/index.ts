@@ -21,7 +21,7 @@ export function getProfileUrl(slug: string): string {
   const base =
     typeof window !== 'undefined'
       ? window.location.origin
-      : 'https://yourdomain.com';
+      : 'https://ldlcwpfynawrqveffsyp.supabase.co';
   return `${base}/u/${slug}`;
 }
 
